@@ -51,7 +51,12 @@ function convertMs(ms) {
 
 
 flatpickr("#datetime-picker", options);
-
+function addZero(time){
+    if (time<10) {
+        return '0'+time
+    }
+    return time
+}
 function onClickStart(){
     btnStart.disabled=true;
   
@@ -61,12 +66,17 @@ function onClickStart(){
         const result=convertMs(timeMs);
         if (selectedDate-timerToday<=0) {
          clearInterval(timerId);
+         btnStart.disabled=false;
          return;
         }
-        fieldDays.textContent=result.days;
-        fieldHours.textContent=result.hours;
-        fieldMinutes.textContent=result.minutes;
-        fieldSeconds.textContent=result.seconds;
+        fieldDays.textContent=addZero(result.days);
+        fieldHours.textContent=addZero(result.hours);
+        // fieldMinutes.textContent=result.minutes;
+        // fieldSeconds.textContent=result.seconds;
+        fieldMinutes.textContent=addZero(result.minutes);
+        fieldSeconds.textContent=addZero(result.seconds);
+        console.log(result.seconds)
+
       }, 1000);
 }
 btnStart.addEventListener("click",onClickStart);
